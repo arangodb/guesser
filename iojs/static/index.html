@@ -15,12 +15,24 @@
      <div ng-switch="view">
       <!-- First view, the welcome screen: -->
       <div ng-switch-when="welcome">
-        <h2>Welcome, think of a thing or an animal, I will try to
-          guess it!</h3>
+       <h2>Welcome, think of a thing or an animal, I will try to
+         guess it!</h2>
+       <form name="enterName">
+        <p>But first, enter your name: 
+         <input type="text" ng-model="container.name" required/>,
+           and click 
+         <button ng-disabled="enterName.$invalid"
+           ng-click="startGame()">Start</button> when you are
+         ready.</p>
+       </form>
+      </div>
+      <!-- Second view, the questions screen: -->
+      <div ng-switch-when="question">
+        <h2>{{container.name}}, please answer the following question:</h2>
 
-      <p>But first, enter your name: <input type="text" ng-model="container.name"/>,
-      and click <button>Start</button> when you are
-      ready.</p>
+        <p>{{theQuestion}}</p>
+        <p><button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
+           <button ng-click="answer(current.goto2)">{{theAnswer2}}</button></p>
       </div>
      </div>
     </div>
