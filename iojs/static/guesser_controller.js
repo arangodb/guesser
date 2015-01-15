@@ -1,7 +1,8 @@
 var app = angular.module("guesser", []);
 
 app.controller("guesserController", function ($scope, $http) {
-  $scope.container = {"name":  ""};
+  $scope.container = { "name": "" };
+
   $scope.restart = function () {
     $http.get("get/root")
       .success(function(response) {
@@ -40,11 +41,54 @@ app.controller("guesserController", function ($scope, $http) {
       .error(function(response) {
                alert("AJAX call failed");
              });
-  } 
-  
+  }
+
   $scope.yes = function () {
     $scope.guessedRight = true;
   }
 
+  $scope.no = function () {
+    $scope.oldThing = $scope.current.guess;
+    $scope.submitted = false;
+    $scope.view = "learning";
+  }
 
-});
+  $scope.submit = function (userThing, userQuestion, answerOld, answerNew) {
+    if (answerOld === answerNew) {
+      alert("Old and new answer must be different");
+      return;
+    }
+    if (userQuestion[userQuestion.length-1] !== "?") {
+      userQuestion += "?";
+    }
+    var a = { oldLeaf: $scope.current._key,
+              oldLeafRev: $scope.current._rev,
+              newQuestion: {
+                question: userQuestion,
+                answer1:  answerOld,
+                answer2:  answerNew,
+                goto1:    $scope.current._key,
+                isLeaf:   false
+              },
+              newLeaf: {
+                isLeaf: true,
+                guess: userThing
+              }
+            };
+    $http.put("put", a)
+      .success(function(response) {
+                 if (response.error === true) {
+                   alert("Could not submit new question! "+
+                         "This leaf was already modified!");
+                   $scope.restart();
+                 }
+                 else {
+                   $scope.submitted = true;
+                 }
+               })
+      .error(function(response) {
+               alert("AJAX call failed, cannot update");
+             });
+  }
+} );
+

@@ -7,6 +7,7 @@
 var fs = require("fs");
 var Promise = require("promise");
 var Database = require("arangojs");
+var concat = require("concat-stream");
 var db = new Database("http://localhost:8529");          // configure server
 var collectionName = "dev_guesser_questions";            // configure collection
 
@@ -58,6 +59,23 @@ app.get("/get/:key", function (req, res) {
   }, null);  // if this were rejected, we would be out already
 });
 
+// This is just a trampoline to the Foxx app:
+var ep = db.endpoint();
+app.put("/put", function (req, res) {
+  req.pipe(concat( function(body) {
+    // check out body-parser for a express middleware which handles json automatically
+    ep.put("/dev/guesser/put", JSON.parse(body.toString()),
+      function(err, x) {
+        if (err) {
+          err.error = true;
+          res.send(err);
+        }
+        else {
+          res.send(x);
+        }
+      });
+  } ));
+});
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Now finally make the server:

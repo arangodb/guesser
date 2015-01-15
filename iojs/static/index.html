@@ -13,19 +13,22 @@
     <div ng-app="guesser" ng-controller="guesserController">
 
      <div ng-switch="view">
+
       <!-- First view, the welcome screen: -->
       <div ng-switch-when="welcome">
-       <h2>Welcome, think of a thing or an animal, I will try to
-         guess it!</h2>
-       <form name="enterName">
-        <p>But first, enter your name: 
+        <h2>Welcome, think of a thing or an animal, I will try to
+          guess it!</h3>
+
+      <form name="enterName">
+      <p>But first, enter your name: 
          <input type="text" ng-model="container.name" required/>,
-           and click 
-         <button ng-disabled="enterName.$invalid"
-           ng-click="startGame()">Start</button> when you are
-         ready.</p>
-       </form>
+      and click 
+      <button ng-disabled="enterName.$invalid"
+              ng-click="startGame()">Start</button> when you are
+      ready.</p>
+      </form>
       </div>
+
       <!-- Second view, the questions screen: -->
       <div ng-switch-when="question">
         <h2>{{container.name}}, please answer the following question:</h2>
@@ -34,6 +37,7 @@
         <p><button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
            <button ng-click="answer(current.goto2)">{{theAnswer2}}</button></p>
       </div>
+
       <!-- Third view, the guessing screen: -->
       <div ng-switch-when="guess">
         <h2>{{container.name}}, I think I know what you guessed:</h2>
@@ -45,6 +49,34 @@
         <p ng-show="guessedRight">Ha! Got you! Click
         <button ng-click="restart()">here</button> to play again.</p>
 
+      </div>
+
+      <!-- Fourth view, the learning screen: -->
+      <div ng-switch-when="learning">
+        <h2>{{container.name}}, OK, you won. Now please help me to learn.</h2>
+
+        <p>What was it you thought of?
+        <form name="inputForm">
+        <input type="text" ng-model="userThing"/>
+        (please include an indefinite article "a" or "an")</p>
+        <p>Please give me a question that distinguishes {{oldThing}}
+           and {{userThing}}:
+        <input type="text" ng-model="userQuestion"/></p>
+        <p>The answer for {{oldThing}} is:
+        <input type="text" ng-model="answerOld" required/>
+        The answer for {{userThing}} is:
+        <input type="text" ng-model="answerNew" required/></p>
+        <p ng-show="! submitted">
+        <button ng-disabled="inputForm.$invalid"
+                ng-click="submit(userThing,userQuestion,answerOld,answerNew)">
+               Submit this</button></p>
+        </form>
+
+        <div ng-show="submitted">
+          <p>Thank you very much, your new question has been
+          submitted. Click
+          <button ng-click="restart()">here</button> to play again.</p>
+        </div>
       </div>
      </div>
     </div>
