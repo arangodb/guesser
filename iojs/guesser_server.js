@@ -6,10 +6,25 @@
 
 var fs = require("fs");
 var Promise = require("promise");
-var Database = require("arangojs");
 var concat = require("concat-stream");
+
+var Database = require("arangojs");
 var db = new Database("http://localhost:8529");          // configure server
-var collectionName = "dev_guesser_questions";            // configure collection
+
+////////////////////////////////////////////////////////////////////////////////
+/// An express app:
+////////////////////////////////////////////////////////////////////////////////
+
+var express = require('express');
+var app = express();
+
+// leverage NODE_ENV to determine collectionName
+var collectionName = "guesser_questions";            // configure collection
+var putRoute = "/guesser/put";
+if (app.get('env') == "development") {
+    putRoute = "/dev" + putRoute;
+    collectionName = "dev_" + collectionName;
+}
 
 var collectionPromise = new Promise(function(resolve, reject) {
     db.collection(collectionName, false, function(err, res) {
@@ -25,13 +40,6 @@ collectionPromise.then(null, function(err) {
     console.log("Cannot contact the database! Terminating...");
     process.exit(1);
 });
-
-////////////////////////////////////////////////////////////////////////////////
-/// An express app:
-////////////////////////////////////////////////////////////////////////////////
-
-var express = require('express');
-var app = express();
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Static content:
@@ -64,7 +72,7 @@ var ep = db.endpoint();
 app.put("/put", function (req, res) {
   req.pipe(concat( function(body) {
     // check out body-parser for a express middleware which handles json automatically
-    ep.put("/dev/guesser/put", JSON.parse(body.toString()),
+    ep.put(putRoute, JSON.parse(body.toString()),
       function(err, x) {
         if (err) {
           err.error = true;
