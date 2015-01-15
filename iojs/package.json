@@ -1,20 +1,46 @@
 {
-  "name": "iojs",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "name": "guesser",
+  "version": "1.4.3",
+  "description": "a guessing game that learns",
+  "main": "guesser_server.js",
   "dependencies": {
-    "arangojs": "^3.0.0",
-    "bower": "^1.3.12",
-    "concat-stream": "^1.4.7",
-    "express": "^4.11.0",
-    "promise": "^6.1.0"
+    "arangojs": ">=3.0.0",
+    "concat-stream": ">=1.4.6",
+    "express": ">=4.10.3",
+    "promise": ">=6.0.1"
   },
-  "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "prepublish": "cd static && bower install"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "devDependencies": {
+    "bower": "*"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/ArangoDB/guesser"
+  },
+  "keywords": [
+    "guessing",
+    "game",
+    "machine",
+    "learning",
+    "binary",
+    "tree",
+    "ArangoDB"
+  ],
+  "author": {
+    "name": "Max Neunhoeffer",
+    "email": "max@arangodb.com",
+    "url": "http://www-groups.mcs.st-and.ac.uk/~neunhoef"
+  },
+  "readme": "README.md",
+  "license": "Apache 2.0",
+  "bugs": {
+    "url": "https://github.com/ArangoDB/guesser/issues"
+  },
+  "files": [
+    "guesser_server.js",
+    "static",
+    "package.json"
+  ]
 }
