@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>guesser - a guessing game that learns</title>
+    <link rel="stylesheet" href="base.css">
+    <script src="bower_components/angularjs/angular.min.js"></script>
+  </head>
+  
+  <body>
+    <h1>guesser - a guessing game that learns</h1>
+    <div ng-app="guesser" ng-controller="guesserController">
+
+     <div ng-switch="view">
+      <!-- First view, the welcome screen: -->
+      <div ng-switch-when="welcome">
+        <h2>Welcome, think of a thing or an animal, I will try to
+          guess it!</h3>
+
+      <p>But first, enter your name: <input type="text" ng-model="name"/>,
+      and click <button>Start</button> when you are
+      ready.</p>
+      </div>
+     </div>
+    </div>
+    <script src="guesser_controller.js"></script>
+  </body>
+</html> 
+
