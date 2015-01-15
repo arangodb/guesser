@@ -34,6 +34,18 @@
         <p><button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
            <button ng-click="answer(current.goto2)">{{theAnswer2}}</button></p>
       </div>
+      <!-- Third view, the guessing screen: -->
+      <div ng-switch-when="guess">
+        <h2>{{container.name}}, I think I know what you guessed:</h2>
+
+        <p>Is it {{theGuess}}?</p>
+        <p><button ng-click="yes()">Yes</button>
+           <button ng-click="no()">No</button></p>
+
+        <p ng-show="guessedRight">Ha! Got you! Click
+        <button ng-click="restart()">here</button> to play again.</p>
+
+      </div>
      </div>
     </div>
     <script src="guesser_controller.js"></script>
