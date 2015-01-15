@@ -5,9 +5,13 @@
   "author": "Max Neunhöffer",
   "license": "Apache 2 License",
 
+  "setup": "scripts/setup.js",
+
   "controllers": {
     "/": "guesser.js"
   },
+
+  "teardown": "scripts/teardown.js",
 
   "repository": {
     "type": "git",
