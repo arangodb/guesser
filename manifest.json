@@ -1,0 +1,17 @@
+{
+  "name": "guesser",
+  "version": "1.1.1",
+  "description": "A learning guessing game",
+  "author": "Max Neunhöffer",
+  "license": "Apache 2 License",
+
+  "controllers": {
+    "/": "guesser.js"
+  },
+
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ArangoDB/guesser.git"
+  }
+
+}
