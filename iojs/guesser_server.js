@@ -8,8 +8,11 @@ var fs = require("fs");
 var Promise = require("promise");
 var concat = require("concat-stream");
 
+var server_addr = process.env.ARANGODB_SERVER ? process.env.ARANGODB_SERVER : "http://localhost:8529";
+var ignore = console.log("Using DB-Server " + server_addr);
+
 var Database = require("arangojs");
-var db = new Database("http://localhost:8529");          // configure server
+var db = new Database(server_addr);          // configure server
 
 ////////////////////////////////////////////////////////////////////////////////
 /// An express app:
