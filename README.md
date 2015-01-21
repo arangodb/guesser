@@ -1,6 +1,8 @@
+# How to write a small but complete web application in half a day from scratch
+
 ## Introduction and Overview
 
-Disclaimer: In this article we want to illustrate a possible architecture of a web application using AngularJS for the frontend in the browser, io.js as application server and ArangoDB as backend database. We are particularly focusing on ArangoDB and its Foxx microservice framework, and only briefly show the io.js and AngularJS parts. In particular, this is not intended to be an AngularJS or io.js tutorial. We even use some shortcuts that one would usually not deploy in production to keep the app simple. Nevertheless, the architecture of the application is in principle suitable as a blueprint for an actual, larger web application.
+In this article we want to illustrate a possible architecture of a web application using AngularJS for the frontend in the browser, io.js as application server and ArangoDB as backend database. We are particularly focusing on ArangoDB and its Foxx microservice framework, and only briefly show the io.js and AngularJS parts. In particular, this is not intended to be an AngularJS or io.js tutorial. We even use some shortcuts that one would usually not deploy in production to keep the app simple. Nevertheless, the architecture of the application is in principle suitable as a blueprint for an actual, larger web application.
 
 We are using io.js in the example. However the project will work using node.js as well.
 
@@ -490,6 +492,17 @@ This separation helps also with the scalability, because one can scale the datab
 From a security perspective, the whole setup is quite satisfactory, since all accesses to the database are via two well-defined routes, which would actually allow to switch off the standard API of the database for increased security. This way, the amount of code one would have to scrutinize is very small.
 
 However we made a few shortcuts in the application structure: You probably don't want to put the bower.json directly into static directory (needs a .bowerrc to work) or you would implement a build process which removes the file in production.
+
+## Authors
+
+This article and the corresponding code base was written by Max
+Neunhöffer [neunhoef](https://github.com/neunhoef) and 
+Andreas Streichardt [m0ppers](https://github.com/m0ppers).
+
+## License
+
+This code is distributed under the 
+[Apache License](http://www.apache.org/licenses/LICENSE-2.0).
 
  [1]: #One
  [2]: #Two
