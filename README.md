@@ -349,7 +349,8 @@ We could have implemented this call using the standard database API and the Aran
     var ep = db.endpoint();
     app.put("/put", function (req, res) {
         req.pipe(concat( function(body) {
-            // check out body-parser for a express middleware which handles json automatically
+            // check out body-parser for an express middleware which 
+            // handles json automatically
             ep.put("/dev/guesser/put", JSON.parse(body.toString()),
                 function(err, x) {
                     if (err) {
