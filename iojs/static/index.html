@@ -13,6 +13,7 @@
     <div ng-app="guesser" ng-controller="guesserController">
 
      <div ng-switch="view">
+
       <!-- First view, the welcome screen: -->
       <div ng-switch-when="welcome">
         <h2>Welcome, think of a thing or an animal, I will try to
@@ -24,6 +25,19 @@
       </div>
      </div>
     </div>
+    <footer>
+    <p>This demo application is part of a
+       <a href="https://github.com/ArangoDB/guesser">tutorial on Github</a>:
+       <br/>
+       "A guessing game that learns, written in JavaScript using
+       <a href="https://angularjs.org/">AngularJs</a>,
+       <a href="https://iojs.org/">io.js</a> and
+       <a href="https://www.arangodb.com/">ArangoDB</a><br/>
+    <strong>License:</strong>Apache 2.0
+    <strong>Github:</strong>ArangoDB/guesser
+    <strong>Authors</strong>: Max Neunhöffer and Andreas Streichardt<br/>
+    Built with the NoSQL Database ArangoDB </p>
+    </footer>
     <script src="guesser_controller.js"></script>
   </body>
 </html> 
