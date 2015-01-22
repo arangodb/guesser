@@ -9,96 +9,98 @@
   </head>
   
   <body>
-    <h1>guesser - a guessing game that learns</h1>
-    <div ng-app="guesser" ng-controller="guesserController">
+    <div class="content">
+      <h1>guesser - a guessing game that learns</h1>
+      <div ng-app="guesser" ng-controller="guesserController">
 
-     <div ng-switch="view">
+       <div ng-switch="view">
 
-      <!-- First view, the welcome screen: -->
-      <div ng-switch-when="welcome">
-       <h2>Welcome, think of a thing or an animal, I will try to
-          guess it!</h2>
+        <!-- First view, the welcome screen: -->
+        <div ng-switch-when="welcome">
+         <h2>Welcome, think of a thing or an animal, I will try to
+            guess it!</h2>
 
-      <form name="enterName">
-      <p>But first, enter your name: 
-         <input type="text" ng-model="container.name" required/>,
-      and click 
-      <button ng-disabled="enterName.$invalid"
-              ng-click="startGame()">Start</button> when you are
-      ready.</p>
-      </form>
-      </div>
-
-      <!-- Second view, the questions screen: -->
-      <div ng-switch-when="question">
-        <h2>{{container.name}}, please answer the following question:</h2>
-
-        <p>{{theQuestion}}</p>
-        <p><button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
-           <button ng-click="answer(current.goto2)">{{theAnswer2}}</button></p>
-      </div>
-
-      <!-- Third view, the guessing screen: -->
-      <div ng-switch-when="guess">
-        <h2>{{container.name}}, I think I know what you guessed:</h2>
-
-        <p>Is it {{theGuess}}?</p>
-        <p><button ng-click="yes()">Yes</button>
-           <button ng-click="no()">No</button></p>
-
-        <p ng-show="guessedRight">Ha! Got you! Click
-        <button ng-click="restart()">here</button> to play again.</p>
-
-      </div>
-
-      <!-- Fourth view, the learning screen: -->
-      <div ng-switch-when="learning">
-        <h2>{{container.name}}, OK, you won. Now please help me to learn.</h2>
-
-        <p>What was it you thought of?
-        <form name="inputForm">
-        <input type="text" ng-model="userThing"/>
-        (please include an indefinite article "a" or "an")</p>
-        <p>Please give me a question that distinguishes
-           <strong>{{oldThing}}</strong>
-           and <strong>{{userThing}}</strong>.
-           Note that the question and the two answers
-           have to be such that for <strong>any</strong> thing or animal
-           one of the answers to the question is correct and the other
-           is incorrect!</p>
-        <p>
-        <input type="text" ng-model="userQuestion"/></p>
-        <p>The answer for {{oldThing}} is:
-        <input type="text" ng-model="answerOld" required/>
-        The answer for {{userThing}} is:
-        <input type="text" ng-model="answerNew" required/></p>
-        <p ng-show="! submitted">
-        <button ng-disabled="inputForm.$invalid"
-                ng-click="submit(userThing,userQuestion,answerOld,answerNew)">
-               Submit this</button></p>
+        <form name="enterName">
+        <p>But first, enter your name: 
+           <input type="text" ng-model="container.name" required/>,
+        and click 
+        <button ng-disabled="enterName.$invalid"
+                ng-click="startGame()">Start</button> when you are
+        ready.</p>
         </form>
-
-        <div ng-show="submitted">
-          <p>Thank you very much, your new question has been
-          submitted. Click
-          <button ng-click="restart()">here</button> to play again.</p>
         </div>
+
+        <!-- Second view, the questions screen: -->
+        <div ng-switch-when="question">
+          <h2>{{container.name}}, please answer the following question:</h2>
+
+          <p>{{theQuestion}}</p>
+          <p><button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
+             <button ng-click="answer(current.goto2)">{{theAnswer2}}</button></p>
+        </div>
+
+        <!-- Third view, the guessing screen: -->
+        <div ng-switch-when="guess">
+          <h2>{{container.name}}, I think I know what you guessed:</h2>
+
+          <p>Is it {{theGuess}}?</p>
+          <p><button ng-click="yes()">Yes</button>
+             <button ng-click="no()">No</button></p>
+
+          <p ng-show="guessedRight">Ha! Got you! Click
+          <button ng-click="restart()">here</button> to play again.</p>
+
+        </div>
+
+        <!-- Fourth view, the learning screen: -->
+        <div ng-switch-when="learning">
+          <h2>{{container.name}}, OK, you won. Now please help me to learn.</h2>
+
+          <p>What was it you thought of?
+          <form name="inputForm">
+          <input type="text" ng-model="userThing"/>
+          (please include an indefinite article "a" or "an")</p>
+          <br/><p>Please give me a question that distinguishes
+             <strong>{{oldThing}}</strong>
+             and <strong>{{userThing}}</strong>.
+             Note that the question and the two answers
+             have to be such that for <strong>any</strong> thing or animal
+             one of the answers to the question is correct and the other
+             is incorrect!</p>
+          <p>
+          <input type="text" ng-model="userQuestion" class="newQuestion"/></p><br/>
+          <p>The answer for {{oldThing}} is:
+          <input type="text" ng-model="answerOld" required/>
+          The answer for {{userThing}} is:
+          <input type="text" ng-model="answerNew" required/></p><br/>
+          <p ng-show="! submitted">
+          <button ng-disabled="inputForm.$invalid"
+                  ng-click="submit(userThing,userQuestion,answerOld,answerNew)">
+                 Submit this</button></p>
+          </form>
+
+          <div ng-show="submitted">
+            <p>Thank you very much, your new question has been
+            submitted. Click
+            <button ng-click="restart()">here</button> to play again.</p>
+          </div>
+        </div>
+       </div>
       </div>
-     </div>
+      <footer>
+      <p>This demo application is part of a
+         <a href="https://github.com/ArangoDB/guesser">tutorial on Github</a>:
+         <br/>
+         "A guessing game that learns, written in JavaScript using
+         <a href="https://angularjs.org/">AngularJs</a>,
+         <a href="https://iojs.org/">io.js</a> and
+         <a href="https://www.arangodb.com/">ArangoDB</a>"<br/>
+      <strong>License:</strong>Apache 2.0<br/>
+      <strong>Github:</strong>ArangoDB/guesser<br/>
+      <strong>Authors</strong>: Max Neunhöffer and Andreas Streichardt<br/>
+      Built with the NoSQL Database ArangoDB </p>
+      </footer>
     </div>
-    <footer>
-    <p>This demo application is part of a
-       <a href="https://github.com/ArangoDB/guesser">tutorial on Github</a>:
-       <br/>
-       "A guessing game that learns, written in JavaScript using
-       <a href="https://angularjs.org/">AngularJs</a>,
-       <a href="https://iojs.org/">io.js</a> and
-       <a href="https://www.arangodb.com/">ArangoDB</a><br/>
-    <strong>License:</strong>Apache 2.0
-    <strong>Github:</strong>ArangoDB/guesser
-    <strong>Authors</strong>: Max Neunhöffer and Andreas Streichardt<br/>
-    Built with the NoSQL Database ArangoDB </p>
-    </footer>
     <script src="guesser_controller.js"></script>
   </body>
 </html> 
