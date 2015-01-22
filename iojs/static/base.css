@@ -8,6 +8,19 @@ body {
 	font-smoothing: antialiased;
 }
 
+h1 {
+        text-align: center;
+        width: 100%;
+}
+
+footer {
+        position: fixed;
+	bottom: 0;
+        font-size: 10pt;
+        text-align: center;
+        width: 100%;
+}
+
 .hidden{
 	display:none;
 }
