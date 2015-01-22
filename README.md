@@ -2,7 +2,7 @@
 
 ## Introduction and Overview
 
-In this article we want to illustrate a possible architecture of a web application using AngularJS for the frontend in the browser, io.js as application server and ArangoDB as backend database. We are particularly focusing on ArangoDB and its Foxx microservice framework, and only briefly show the io.js and AngularJS parts. In particular, this is not intended to be an AngularJS or io.js tutorial. We even use some shortcuts that one would usually not deploy in production to keep the app simple. Nevertheless, the architecture of the application is in principle suitable as a blueprint for an actual, larger web application.
+In this tutorial we want to illustrate a possible architecture of a web application using AngularJS for the frontend in the browser, io.js as application server and ArangoDB as backend database. We are particularly focusing on ArangoDB and its Foxx microservice framework, and only briefly show the io.js and AngularJS parts. In particular, this is not intended to be an AngularJS or io.js tutorial. We even use some shortcuts that one would usually not deploy in production to keep the app simple. Nevertheless, the architecture of the application is in principle suitable as a blueprint for an actual, larger web application.
 
 We are using io.js in the example. However the project will work using node.js as well.
 
@@ -496,7 +496,7 @@ However we made a few shortcuts in the application structure: You probably don't
 
 ## Authors
 
-This article and the corresponding code base was written by Max
+This tutorial and the corresponding code base was written by Max
 Neunhöffer [neunhoef](https://github.com/neunhoef) and 
 Andreas Streichardt [m0ppers](https://github.com/m0ppers).
 
