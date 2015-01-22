@@ -59,8 +59,14 @@
         <form name="inputForm">
         <input type="text" ng-model="userThing"/>
         (please include an indefinite article "a" or "an")</p>
-        <p>Please give me a question that distinguishes {{oldThing}}
-           and {{userThing}}:
+        <p>Please give me a question that distinguishes
+           <strong>{{oldThing}}</strong>
+           and <strong>{{userThing}}</strong>.
+           Note that the question and the two answers
+           have to be such that for <strong>any</strong> thing or animal
+           one of the answers to the question is correct and the other
+           is incorrect!</p>
+        <p>
         <input type="text" ng-model="userQuestion"/></p>
         <p>The answer for {{oldThing}} is:
         <input type="text" ng-model="answerOld" required/>
@@ -80,6 +86,19 @@
       </div>
      </div>
     </div>
+    <footer>
+    <p>This demo application is part of a
+       <a href="https://github.com/ArangoDB/guesser">tutorial on Github</a>:
+       <br/>
+       "A guessing game that learns, written in JavaScript using
+       <a href="https://angularjs.org/">AngularJs</a>,
+       <a href="https://iojs.org/">io.js</a> and
+       <a href="https://www.arangodb.com/">ArangoDB</a><br/>
+    <strong>License:</strong>Apache 2.0
+    <strong>Github:</strong>ArangoDB/guesser
+    <strong>Authors</strong>: Max Neunhöffer and Andreas Streichardt<br/>
+    Built with the NoSQL Database ArangoDB </p>
+    </footer>
     <script src="guesser_controller.js"></script>
   </body>
 </html> 
