@@ -29,17 +29,6 @@
             </form>
           </div>
 
-          <!-- Second view, the questions screen: -->
-          <div ng-switch-when="question">
-            <h2>{{container.name}}, please answer the following question:</h2>
-
-            <p>{{theQuestion}}</p>
-            <p>
-              <button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
-              <button ng-click="answer(current.goto2)">{{theAnswer2}}</button>
-            </p>
-          </div>
-
         </div>
       </div>
       <footer>
