@@ -7,52 +7,54 @@
     <link rel="stylesheet" href="base.css">
     <script src="bower_components/angularjs/angular.min.js"></script>
   </head>
-  
   <body>
-    <h1>guesser - a guessing game that learns</h1>
-    <div ng-app="guesser" ng-controller="guesserController">
+    <div class="content">
+      <div ng-app="guesser" ng-controller="guesserController" class="guesserContent">
+        <h1>guesser - a guessing game that learns</h1>
 
-     <div ng-switch="view">
+        <div ng-switch="view">
 
-      <!-- First view, the welcome screen: -->
-      <div ng-switch-when="welcome">
-       <h2>Welcome, think of a thing or an animal, I will try to
-          guess it!</h2>
+          <!-- First view, the welcome screen: -->
+          <div ng-switch-when="welcome">
+            <h2>Welcome, think of a thing or an animal, I will try to guess it!</h2>
 
-      <form name="enterName">
-      <p>But first, enter your name: 
-         <input type="text" ng-model="container.name" required/>,
-      and click 
-      <button ng-disabled="enterName.$invalid"
-              ng-click="startGame()">Start</button> when you are
-      ready.</p>
-      </form>
-      </div>
+            <form name="enterName">
+              <p>
+                But first, enter your name: 
+                <input type="text" ng-model="container.name" required/>,
+                and click 
+                <button ng-disabled="enterName.$invalid" ng-click="startGame()">Start</button> 
+                when you are ready.
+              </p>
+            </form>
+          </div>
 
-      <!-- Second view, the questions screen: -->
-      <div ng-switch-when="question">
-        <h2>{{container.name}}, please answer the following question:</h2>
+          <!-- Second view, the questions screen: -->
+          <div ng-switch-when="question">
+            <h2>{{container.name}}, please answer the following question:</h2>
 
-        <p>{{theQuestion}}</p>
-        <p><button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
-           <button ng-click="answer(current.goto2)">{{theAnswer2}}</button></p>
-      </div>
-     </div>
+            <p>{{theQuestion}}</p>
+            <p>
+              <button ng-click="answer(current.goto1)">{{theAnswer1}}</button>
+              <button ng-click="answer(current.goto2)">{{theAnswer2}}</button>
+            </p>
+          </div>
+
+      <footer>
+        <p>
+          This demo application is part of a
+          <a href="https://github.com/ArangoDB/guesser">tutorial on Github</a>:<br/>
+          "A guessing game that learns, written in JavaScript using
+          <a href="https://angularjs.org/">AngularJs</a>,
+          <a href="https://iojs.org/">io.js</a> and
+          <a href="https://www.arangodb.com/">ArangoDB</a>"<br/>
+          <strong>License:</strong>Apache 2.0<br/>
+          <strong>Github:</strong>ArangoDB/guesser<br/>
+          <strong>Authors</strong>: Max Neunhöffer and Andreas Streichardt<br/>
+          Built with the NoSQL Database ArangoDB 
+        </p>
+      </footer>
     </div>
-    <footer>
-    <p>This demo application is part of a
-       <a href="https://github.com/ArangoDB/guesser">tutorial on Github</a>:
-       <br/>
-       "A guessing game that learns, written in JavaScript using
-       <a href="https://angularjs.org/">AngularJs</a>,
-       <a href="https://iojs.org/">io.js</a> and
-       <a href="https://www.arangodb.com/">ArangoDB</a><br/>
-    <strong>License:</strong>Apache 2.0
-    <strong>Github:</strong>ArangoDB/guesser
-    <strong>Authors</strong>: Max Neunhöffer and Andreas Streichardt<br/>
-    Built with the NoSQL Database ArangoDB </p>
-    </footer>
     <script src="guesser_controller.js"></script>
   </body>
 </html> 
-
