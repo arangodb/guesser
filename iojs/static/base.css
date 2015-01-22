@@ -1,26 +1,88 @@
+html {
+  height: 100%;
+}
+
 body {
-	background: #bbddff;
-	color: #333333;
-	-webkit-font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	-ms-font-smoothing: antialiased;
-	-o-font-smoothing: antialiased;
-	font-smoothing: antialiased;
+  background: #fbfbfb;
+  color: #333;
+  -webkit-font-smoothing: antialiased;
+  -moz-font-smoothing: antialiased;
+  -ms-font-smoothing: antialiased;
+  -o-font-smoothing: antialiased;
+  font-smoothing: antialiased;
+  font-family: Helvetica, sans-serif;
+  font-size: 100%;
+/*  padding: 0.25em;
+*/  height: 100%;
+}
+
+.content {
+  position: relative;
+  min-height: 100%;
+  width: 95%;
+  margin: 0px auto;
+}
+
+.guesserContent {
+  padding-bottom: 132px;
 }
 
 h1 {
-        text-align: center;
-        width: 100%;
+  margin: 0px;
+  text-align: center;
+  padding: 1em 0 2em 0;
+  font-size: 2.5em;
+  line-height: 1.35em;
+}
+
+h2 {
+  margin: 1em 0px 1.25em 0px;
+  font-size: 1.5em;
+  line-height: 1.35em;
+}
+
+input {
+  font-family: Helvetica, sans-serif;
+  font-size: 0.8em;
+  line-height: 0.9em;
+  padding: 2px;
+}
+
+button {
+  font-family: Helvetica, sans-serif;
+  font-size: 1.0em;
+  line-height: 1.35em;
+  padding: 4px;
+  margin: 1px;
+}
+
+p {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin-top: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.newQuestion {
+  width: 20%;
 }
 
 footer {
-        position: fixed;
-	bottom: 0;
-        font-size: 10pt;
-        text-align: center;
-        width: 100%;
+  position: absolute;
+  bottom: 0;
+  font-size: 0.8em;
+  text-align: center;
+  width: 100%;
+  height: 132px;
 }
 
 .hidden{
-	display:none;
+  display: none;
+}
+
+
+@media (min-width: 800px) { 
+  .content {
+    width: 75%;
+  }
 }
