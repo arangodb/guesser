@@ -1,4 +1,4 @@
-# How to write a small but complete web application in half a day from scratch
+# Building a self-learning game with ArangoDB, io.js/NodeJS & AngularJS in half a day. 
 
 ## Introduction and Overview
 
@@ -12,7 +12,7 @@ Our web application will be a guessing game, in which the computer tries to gues
 
 <http://guesser.9hoeffer.de:8000>
 
-The data from this machine learning is kept persistent in the database. We use a single collection storing the questions as well as the guesses, which are organized in a binary tree. Each question node has a left and a right child for the two different answers, and each guess is a leaf in the tree. We do not use a graph data model for this since our queries will only be single document lookups.
+The data from this "machine learning" is kept persistent in the database. We use a single collection storing the questions as well as the guesses, which are organized in a binary tree. Each question node has a left and a right child for the two different answers, and each guess is a leaf in the tree. We do not use a graph data model for this since our queries will only be single document lookups.
 
 During the game the app will simply follow one path in the tree from the root to a leaf, depending on the answers by the user. It will then try a guess, if this is not correct, it will ask the user to provide the right answer and a new question to distinguish that answer from the guess, and finally change the tree, completing the learning process.
 
