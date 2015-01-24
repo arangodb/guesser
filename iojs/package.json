@@ -10,7 +10,7 @@
     "promise": ">=6.0.1"
   },
   "scripts": {
-    "prepublish": "cd static && bower install"
+    "prepublish": "cd static && bower install --config.interactive=false -s --allow-root"
   },
   "devDependencies": {
     "bower": "*"

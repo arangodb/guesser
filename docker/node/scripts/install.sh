@@ -25,7 +25,8 @@ apt-get -y -qq --force-yes update
 echo " ---> Installing the guesser game"
 mkdir /data/node_modules
 cp -a /install/guesser-node /data/node_modules/guesser
-(cd /data/node_modules/guesser && npm install)
+(cd /tmp && npm install -g bower)
+(cd /data/node_modules/guesser && npm install --unsafe-perm)
 
 # install arangodb
 echo " ---> Installing arangodb-client package"

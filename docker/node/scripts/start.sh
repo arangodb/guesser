@@ -3,6 +3,7 @@ set -e
 
 if test "$nolink" = 1;  then
   echo "Starting without a database link"
+  export ARANGODB_SERVER=none
 else
 
   # sanity check
