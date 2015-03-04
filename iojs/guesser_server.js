@@ -12,7 +12,10 @@ var server_addr = process.env.ARANGODB_SERVER ? process.env.ARANGODB_SERVER : "h
 var ignore = console.log("Using DB-Server " + server_addr);
 
 var Database = require("arangojs");
-var db = new Database(server_addr);          // configure server
+
+if (server_addr !== "none") {
+  var db = new Database(server_addr);          // configure server
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// An express app:
@@ -39,10 +42,13 @@ var collectionPromise = new Promise(function(resolve, reject) {
         }
     });
 });
-collectionPromise.then(null, function(err) {
-    console.log("Cannot contact the database! Terminating...");
-    process.exit(1);
-});
+
+if (server_addr !== "none") {
+  collectionPromise.then(null, function(err) {
+      console.log("Cannot contact the database! Terminating...");
+      process.exit(1);
+  });
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Static content:
@@ -71,7 +77,8 @@ app.get("/get/:key", function (req, res) {
 });
 
 // This is just a trampoline to the Foxx app:
-var ep = db.route(putRoute);
+var ep = (server_addr !== "none") ? db.route(putRoute) : undefined;
+
 app.put("/put", function (req, res) {
   req.pipe(concat( function(body) {
     // check out body-parser for a express middleware which handles json automatically

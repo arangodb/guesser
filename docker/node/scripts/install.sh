@@ -11,6 +11,7 @@ echo 'debconf debconf/frontend select Noninteractive' | debconf-set-selections
 echo " ---> Updating the system"
 apt-get -y -qq --force-yes update
 apt-get -y -qq install wget
+apt-get -y -qq install dnsutils
 apt-get -y -qq install apt-transport-https
 
 # install arangodb key
@@ -25,7 +26,8 @@ apt-get -y -qq --force-yes update
 echo " ---> Installing the guesser game"
 mkdir /data/node_modules
 cp -a /install/guesser-node /data/node_modules/guesser
-(cd /data/node_modules/guesser && npm install)
+(cd /tmp && npm install -g bower)
+(cd /data/node_modules/guesser && npm install --unsafe-perm)
 
 # install arangodb
 echo " ---> Installing arangodb-client package"
