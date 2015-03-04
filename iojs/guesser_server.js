@@ -20,9 +20,8 @@ var app = express();
 
 // leverage NODE_ENV to determine collectionName
 var collectionName = "guesser_questions";            // configure collection
-var putRoute = "/guesser/put";
+var putRoute = "put";
 if (app.get('env') == "development") {
-    putRoute = "/dev" + putRoute;
     collectionName = "dev_" + collectionName;
 }
 
@@ -68,7 +67,7 @@ app.get("/get/:key", function (req, res) {
 });
 
 // This is just a trampoline to the Foxx app:
-var ep = db.endpoint();
+var ep = db.route("guesser");
 app.put("/put", function (req, res) {
   req.pipe(concat( function(body) {
     // check out body-parser for a express middleware which handles json automatically
