@@ -64,7 +64,7 @@ var ep = db.route("guesser");
 app.put("/put", function (req, res) {
   req.pipe(concat( function(body) {
     // check out body-parser for a express middleware which handles json automatically
-    ep.put("/dev/guesser/put", JSON.parse(body.toString()),
+    ep.put("put", JSON.parse(body.toString()),
       function(err, x) {
         if (err) {
           err.error = true;
