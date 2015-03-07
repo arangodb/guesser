@@ -138,18 +138,21 @@ to start a web server on `port 8000` of your local machine. If you visit
 
 To get a feeling of how easy it is to configure an `express` server, here is the code that organizes the delivery of a single static page:
 
-    var express = require('express');
-    var app = express();
-    app.use(express.static(__dirname + "/static"));
+```javascript
+var express = require('express');
+var app = express();
+app.use(express.static(__dirname + "/static"));
+```
 
 and here is the code that creates the actual web server:
 
-    var server = app.listen(8000, function () {
-      var host = server.address().address
-      var port = server.address().port
-      console.log('Guesser app server listening at http://%s:%s', host, port)
-    });
-    
+```javascript
+var server = app.listen(8000, function () {
+  var host = server.address().address
+  var port = server.address().port
+  console.log('Guesser app server listening at http://%s:%s', host, port)
+});
+```
 
 The HTML page is a standard one with a few AngularJS directives, the AngularJS controller is as yet only a stub.
 
@@ -182,7 +185,6 @@ in the `javascript` section. Restart ArangoDB after this change, on Linux, for e
 
     sudo service arangodb restart
     
-
 for this. Use
 
     git checkout step4
@@ -210,17 +212,18 @@ to see the state of our project after this step. The file `manifest.json` is the
 
 This is achieved by the following code in `guesser.js`:
 
-    (function () {
-      "use strict";
-      var Foxx = require("org/arangodb/foxx"),
-          log = require("console").log,
-          controller = new Foxx.Controller(applicationContext);
-      // Example route:
-      controller.get('/hello', function (req, res) {
-        res.json({"Hello": "world"});
-      });
-    }());
-    
+```javascript
+(function () {
+  "use strict";
+  var Foxx = require("org/arangodb/foxx"),
+      log = require("console").log,
+      controller = new Foxx.Controller(applicationContext);
+  // Example route:
+  controller.get('/hello', function (req, res) {
+    res.json({"Hello": "world"});
+  });
+}());
+```
 
 This initializes the controller and installs a single route for an `HTTP GET` request. You can test this route by pointing your browser to
 
@@ -228,8 +231,9 @@ This initializes the controller and installs a single route for an `HTTP GET` re
 
 You should see a single JSON document like this:
 
-    { "Hello": "world" }
-    
+```json
+{ "Hello": "world" }
+```
 
 If this does not work right away, you might want to try to restart the database server using
 
@@ -345,71 +349,75 @@ As usual, we add a new view in the file `index.html`, and it is backed by two cl
 
 We could have implemented this call using the standard database API and the ArangoDB driver. However, we wanted to illustrate the concept of additional user defined services implemented in the database server, which is the whole point of the Foxx framework. Therefore, the io.js server only implements a very short trampoline function and simply forwards the `PUT` request to the Foxx app. Here is the code:
 
-    // This is just a trampoline to the Foxx app:
-    var ep = db.endpoint();
-    app.put("/put", function (req, res) {
-        req.pipe(concat( function(body) {
-            // check out body-parser for an express middleware which 
-            // handles json automatically
-            ep.put("/dev/guesser/put", JSON.parse(body.toString()),
-                function(err, x) {
-                    if (err) {
-                        err.error = true;
-                        res.send(err);
-                    }   
-                    else {
-                        res.send(x);
-                    }   
-                }); 
-        })); 
-    });
- 
+
+```javascript
+// This is just a trampoline to the Foxx app:
+var ep = db.endpoint();
+app.put("/put", function (req, res) {
+    req.pipe(concat( function(body) {
+        // check out body-parser for an express middleware which 
+        // handles json automatically
+        ep.put("/dev/guesser/put", JSON.parse(body.toString()),
+            function(err, x) {
+                if (err) {
+                    err.error = true;
+                    res.send(err);
+                }   
+                else {
+                    res.send(x);
+                }   
+            }); 
+    })); 
+});
+```
 
 The actual implementation of this `PUT` request is then in `guesser.js` in the Foxx app, which is a bit longer.
 
 The callback function for the `/put` route simply executes a transaction on the database, changing the tree in one go. This is crucial to ensure that the data structure is never corrupted. We use a transaction, because this guarantees atomic and isolated operation for all manipulations. Furthermore, we check that the current revision of the leaf node is still the same as when we fetched it from the database. This ensures that the change can only go through if nobody else changed the tree in this place in the meantime. Here is the code from `guesser/guesser.js`:
 
-    controller.put('/put', function (req, res) {
-      log("put called");
-      var db = require("internal").db;
-      var b = req.body();
-      try {
-        db._executeTransaction( {
-          collections: {
-            write: [collName]
-          },
-          action: function () {
-            var oldLeaf = coll.document(b.oldLeaf);
-            if (oldLeaf._rev !== b.oldLeafRev) {
-              log("Leaf was already changed!");
-              throw {"error":true, "errorMessage": "Leaf was already changed"};
-            }
-            var oldParent = coll.document(oldLeaf.parent);
-            b.newQuestion.parent = oldLeaf.parent;
-            var newQuestion = coll.insert(b.newQuestion);
-            b.newLeaf.parent = newQuestion._key;
-            var newLeaf = coll.insert(b.newLeaf);
-            coll.update(newQuestion._key, { goto2: newLeaf._key });
-            coll.update(oldLeaf._key, {parent: newQuestion._key});
-            if (oldParent.goto1 === b.oldLeaf) {
-              coll.update(oldParent._key, { goto1: newQuestion._key });
-            }
-            else if (oldParent.goto2 === b.oldLeaf) {
-              coll.update(oldParent._key, { goto2: newQuestion._key });
-            }
-            else {
-              throw "Murks";
-            }
-          },
-        });
-      }
-      catch (e) {
-        res.json(e);
-        return;
-      }
-      res.json({"error":false});
+
+```javascript
+controller.put('/put', function (req, res) {
+  log("put called");
+  var db = require("internal").db;
+  var b = req.body();
+  try {
+    db._executeTransaction( {
+      collections: {
+        write: [collName]
+      },
+      action: function () {
+        var oldLeaf = coll.document(b.oldLeaf);
+        if (oldLeaf._rev !== b.oldLeafRev) {
+          log("Leaf was already changed!");
+          throw {"error":true, "errorMessage": "Leaf was already changed"};
+        }
+        var oldParent = coll.document(oldLeaf.parent);
+        b.newQuestion.parent = oldLeaf.parent;
+        var newQuestion = coll.insert(b.newQuestion);
+        b.newLeaf.parent = newQuestion._key;
+        var newLeaf = coll.insert(b.newLeaf);
+        coll.update(newQuestion._key, { goto2: newLeaf._key });
+        coll.update(oldLeaf._key, {parent: newQuestion._key});
+        if (oldParent.goto1 === b.oldLeaf) {
+          coll.update(oldParent._key, { goto1: newQuestion._key });
+        }
+        else if (oldParent.goto2 === b.oldLeaf) {
+          coll.update(oldParent._key, { goto2: newQuestion._key });
+        }
+        else {
+          throw "Murks";
+        }
+      },
     });
-    
+  }
+  catch (e) {
+    res.json(e);
+    return;
+  }
+  res.json({"error":false});
+});
+```
 
 The game is now fully functional and playing it will actually increase the tree and thus the knowledge of the game.
 
@@ -423,7 +431,6 @@ Now that the application works, it is time to switch off the development mode an
 
     dev-app-path = <PATH_TO_YOUR_apps_DIR>
     
-
 in `arangod.conf` again and restart the ArangoDB server:
 
     sudo service arangodb restart
@@ -445,7 +452,6 @@ Regardless of which deployment method you used, you now have to adjust the file
 
     iojs/guesser_server.js
     
-
 in two places: one is the name of the collection, which is now `guesser_questions` rather than `dev_guesser_questions`. The second place is the route of the Foxx `PUT` request which is now `/guesser/put` rather than `/dev/guesser/put`. As a best practive we can leverage the `env` variable of express which defaults to `development` and can be controlled by invoking io.js like this: ``NODE_ENV=production iojs guesser_server.js``
 
 Use
