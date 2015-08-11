@@ -361,10 +361,11 @@ app.put("/put", function (req, res) {
             function(err, x) {
                 if (err) {
                     err.error = true;
+                    delete err.response;
                     res.send(err);
                 }   
                 else {
-                    res.send(x);
+                    res.send(x.body);
                 }   
             }); 
     })); 
