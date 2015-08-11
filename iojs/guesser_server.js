@@ -49,6 +49,7 @@ app.get("/get/:key", function (req, res) {
           if (err) {
               // for production we should implement more sophisticated handling here. Like logging where appropriate etc.
               res.status(err.code);
+              delete err.response;
               res.json(err);
           }
           else {
