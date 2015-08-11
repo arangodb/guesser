@@ -1,13 +1,13 @@
 {
   "name": "guesser",
-  "version": "1.5.2",
+  "version": "1.5.3",
   "description": "a guessing game that learns",
   "main": "guesser_server.js",
   "dependencies": {
-    "arangojs": ">=3.0.0",
-    "concat-stream": ">=1.4.6",
-    "express": ">=4.10.3",
-    "promise": ">=6.0.1"
+    "arangojs": "^3.9.1",
+    "concat-stream": "^1.5.0",
+    "express": "^4.13.3",
+    "promise": "^7.0.4"
   },
   "scripts": {
     "prepublish": "cd static && bower install --config.interactive=false -s --allow-root"

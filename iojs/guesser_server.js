@@ -67,6 +67,7 @@ app.get("/get/:key", function (req, res) {
           if (err) {
               // for production we should implement more sophisticated handling here. Like logging where appropriate etc.
               res.status(err.code);
+              delete err.response
               res.json(err);
           }
           else {
@@ -86,10 +87,11 @@ app.put("/put", function (req, res) {
       function(err, x) {
         if (err) {
           err.error = true;
+          delete err.response;
           res.send(err);
         }
         else {
-          res.send(x);
+          res.send(x.body);
         }
       });
   } ));
