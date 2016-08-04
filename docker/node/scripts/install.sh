@@ -24,7 +24,7 @@ apt-get -y -qq --force-yes update
 
 # use NPM to install the guesser game
 echo " ---> Installing the guesser game"
-mkdir /data/node_modules
+mkdir -p /data/node_modules
 cp -a /install/guesser-node /data/node_modules/guesser
 (cd /tmp && npm install -g bower)
 (cd /data/node_modules/guesser && npm install --unsafe-perm)

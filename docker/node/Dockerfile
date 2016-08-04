@@ -1,5 +1,5 @@
 # use base node.js
-FROM dockerfile/nodejs
+FROM node:argon
 
 # maintainer info
 MAINTAINER Frank Celler <f.celler@arangodb.com>
